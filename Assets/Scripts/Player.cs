@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    private float _speed=2;
+    private float _speed = 2;
     private Animator _anim;
     private Inventory _inventory;
     private UI_Inventory _uiInventory;
@@ -12,12 +12,13 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _collider = GetComponent<Collider2D>();
-        _anim = GetComponent<Animator>();
-        _rb = GetComponent<Rigidbody2D>();
+        GetComponents();
         _inventory = new Inventory();
+    }
+
+    private void Start()
+    {
         _uiInventory = GameManager.current.uiInventory;
-        
         _uiInventory.SetInventory(_inventory);
     }
 
@@ -47,9 +48,18 @@ public class Player : MonoBehaviour
     {
         if (col.CompareTag("Item"))
         {
-            Collectibles item = col.GetComponent<Collectibles>();
+            ItemWorld item = col.GetComponent<ItemWorld>();
             _inventory.AddItem(item.GetItem());
             item.Die();
         }
+    }
+
+
+
+    private void GetComponents()
+    {
+        _collider = GetComponent<Collider2D>();
+        _anim = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 }

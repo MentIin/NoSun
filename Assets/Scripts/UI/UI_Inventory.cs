@@ -32,8 +32,18 @@ public class UI_Inventory : MonoBehaviour
         foreach (Item item in _inventory.GetItemsList())
         {
             Transform instantce = Instantiate(itemSlotPrefab, itemSlotContainer);
-            Image image = instantce.GetChild(0).GetComponent<Image>();
+            Image image = instantce.Find("icon").GetComponent<Image>();
+            Text amountLabel = instantce.Find("amountLabel").GetComponent<Text>();
             image.sprite = item.GetSprite();
+            if (item.amount > 1)
+            {
+                amountLabel.text = item.amount.ToString();
+            }
+            else
+            {
+                amountLabel.gameObject.SetActive(false);
+            }
+            
 
         }
     }

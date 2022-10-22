@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Collectibles : MonoBehaviour
+public class ItemWorld : MonoBehaviour
 {
     protected SpriteRenderer _spriteRenderer;
     private int[] renderedOrders = {0, 2};
     private Item _item;
 
-    public static Collectibles Spawn(Vector2 position, Item item)
+    public static ItemWorld Spawn(Vector2 position, Item item)
     {
         Transform transform = Instantiate(ItemAssets.Instance.itemPref, position, Quaternion.identity);
 
-        Collectibles col = transform.GetComponent<Collectibles>();
+        ItemWorld col = transform.GetComponent<ItemWorld>();
         col.SetItem(item);
 
         return col;
@@ -20,12 +22,13 @@ public class Collectibles : MonoBehaviour
     protected void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     public void SetItem(Item item)
     {
         _item = item;
-        
+        SetIcon();
     }
 
     public Item GetItem()

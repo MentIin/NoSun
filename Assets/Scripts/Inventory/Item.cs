@@ -22,4 +22,16 @@ public class Item
         }
     }
 
+    public bool isStackable
+    {
+        get
+        {
+            switch (itemType)
+            {
+                case ItemType.Wood: return true;
+            }
+            return false;
+        }
+    }
+
 }
